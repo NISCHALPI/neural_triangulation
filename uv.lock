@@ -181,15 +181,15 @@ wheels = [
 
 [[package]]
 name = "diffkalman"
-version = "0.1.0"
+version = "0.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fe/e1/5612b5c1167c7e8314fa8a3e9924530d36dba31f6885959fdcaee8c388eb/diffkalman-0.1.0.tar.gz", hash = "sha256:eeacac61ec6ea7ed740aac95c1ba59f01a965811a33c6fe152ddda26f35376ea", size = 67085 }
+sdist = { url = "https://files.pythonhosted.org/packages/b4/66/81efd482ca734822ebc0f2cdb4e2bff203ba507047d474a78c91eaba8e28/diffkalman-0.1.1.tar.gz", hash = "sha256:6ed07e7332d439e5b662b70d2cc4eb66cff25d45cf4164d53e8889dfe790ab83", size = 67092 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/97/8d/f37dc2eed1c9ff0eff6d9383d10003102b0fcacf8cb24e73b271df9aad32/diffkalman-0.1.0-py3-none-any.whl", hash = "sha256:e5516388abe0d1a723bbc13895785a80271b824a64889f7a6dab13c68134328c", size = 14813 },
+    { url = "https://files.pythonhosted.org/packages/13/20/ee4f883396ef569c7c0641b54b8cbac4de53b2f63920dc2549d6a3e9aaa8/diffkalman-0.1.1-py3-none-any.whl", hash = "sha256:68b8b6dcbfab89f20277c338851d14648307472f3698ea67d7242cfe1804f4d6", size = 14822 },
 ]
 
 [package.optional-dependencies]
@@ -583,7 +583,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "diffkalman", extras = ["cu124"], specifier = ">=0.1.0" },
+    { name = "diffkalman", extras = ["cu124"], specifier = ">=0.1.1" },
     { name = "filterpy", specifier = ">=1.4.5" },
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "scipy", specifier = ">=1.15.1" },

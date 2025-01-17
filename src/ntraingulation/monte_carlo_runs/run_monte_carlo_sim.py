@@ -61,6 +61,7 @@ def run_monte_carlo_sim(
     mu_noise: torch.Tensor,
     P_noise: torch.Tensor,
     estimator: callable,
+    is_sim : bool = True,
     **kwargs
 ) -> pd.DataFrame:
     """Run the monte carlo simulation and get the ENU error for each run.
@@ -72,6 +73,7 @@ def run_monte_carlo_sim(
         mu_noise: The mean of the noise. (DIM_Z,)
         P_noise: The standard deviation of the noise. (DIM_Z, DIM_Z)
         estimator: The estimator to use to infer the coordinates.
+        is_sim: Weather to add the noise or not.
         **kwargs: Additional arguments to pass to the estimator.
 
     Returns:
@@ -89,6 +91,11 @@ def run_monte_carlo_sim(
         with tqdm.tqdm(total=n_mc, desc="Monte Carlo Simulation") as pbar:
             for _ in range(n_mc):
                 # Generate the noisy measurements
+                if is_sim:
+                    z_noisy = apply_gaussian_noise(z_true, mu_noise, P_noise)
+                else:
+                    z_noisy = z_true
+                
                 z_noisy = apply_gaussian_noise(z_true, mu_noise, P_noise)
 
                 # Estimate the position
@@ -97,7 +104,7 @@ def run_monte_carlo_sim(
                 # Calculate the ENU errors
                 enu_error = get_enu_position_errors(
                     predicted=estimated_position, true=true_position[["x", "y", "z"]]
-                ).abs()
+                )
 
                 # Append the ENU errors
                 enu_errors.append(enu_error.mean(axis=0).values)

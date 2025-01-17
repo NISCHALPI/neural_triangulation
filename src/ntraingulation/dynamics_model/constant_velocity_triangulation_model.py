@@ -199,8 +199,7 @@ class BiasedObservationModel(nn.Module):
         super().__init__()
 
         if trainable:
-            self.register_buffer("U", torch.ones(dim_measurement))
-            self.alpha = nn.Parameter(torch.ones(1) * 1e-30, requires_grad=True)
+            self.bias = nn.Parameter(torch.zeros(dim_measurement), requires_grad=True)
 
     def forward(self, x: torch.Tensor, sv_pos: torch.Tensor) -> torch.Tensor:
         """Forward pass of the observation model.
@@ -212,8 +211,8 @@ class BiasedObservationModel(nn.Module):
         Returns:
             torch.Tensor: Predicted measurements.
         """
-        if hasattr(self, "U"):
-            return h(x, sv_pos) + self.U * self.alpha
+        if hasattr(self, "bias"):
+            return h(x, sv_pos) + self.bias
 
         return h(x, sv_pos)
 

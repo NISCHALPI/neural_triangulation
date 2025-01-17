@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 
 # Do not ignore mics folder
-experiments/*
 # C extensions
 *.so
 *.json

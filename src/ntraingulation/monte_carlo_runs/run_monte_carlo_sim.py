@@ -62,6 +62,7 @@ def run_monte_carlo_sim(
     P_noise: torch.Tensor,
     estimator: callable,
     is_sim : bool = True,
+    reduce: bool = True,
     **kwargs
 ) -> pd.DataFrame:
     """Run the monte carlo simulation and get the ENU error for each run.
@@ -74,6 +75,7 @@ def run_monte_carlo_sim(
         P_noise: The standard deviation of the noise. (DIM_Z, DIM_Z)
         estimator: The estimator to use to infer the coordinates.
         is_sim: Weather to add the noise or not.
+        reduce: Weather to reduce the ENU errors or not.
         **kwargs: Additional arguments to pass to the estimator.
 
     Returns:
@@ -105,10 +107,13 @@ def run_monte_carlo_sim(
                 enu_error = get_enu_position_errors(
                     predicted=estimated_position, true=true_position[["x", "y", "z"]]
                 )
-
+                
                 # Append the ENU errors
-                enu_errors.append(enu_error.mean(axis=0).values)
-
+                if reduce:
+                    enu_errors.append(enu_error.mean(axis=0).values)
+                else:
+                    enu_errors = enu_error
+                    
                 # Update the progress bar
                 pbar.update(1)
 
